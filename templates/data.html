@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data List</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='data_site.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Data List</h1>
+        <table id="data-table" class="display">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>PESEL</th>
+                    <th>Birth Date</th>
+                    <th>Order</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                    <tr>
+                        <td>{{ item.first_name }}</td>
+                        <td>{{ item.last_name }}</td>
+                        <td>{{ item.pesel }}</td>
+                        <td>{{ item.birth_date }}</td>
+                        <td>{{ item.order }}</td>
+                        <td>
+                            <button class="edit-btn" data-index="{{ loop.index0 }}">Edit</button>
+                            <button class="remove-btn" data-index="{{ loop.index0 }}">Remove</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button id="add-btn">Add New Data</button>
+    </div>
+    <p id="logout"><a href="{{ url_for('home') }}">Back to Home</a></p>
+
+    <!-- Add Data Popup -->
+    <div class="popup" id="add-popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('add-popup')">&times;</span>
+            <h2>Add New Data</h2>
+            <form method="post" action="{{ url_for('add_data') }}">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name" placeholder="Jan" required>
+                <br>
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" placeholder="Kowalski" required>
+                <br>
+                <label for="pesel">PESEL:</label>
+                <input type="number" id="pesel" name="pesel" value="00000000000" required>
+                <br>
+                <label for="birth_date">Birth Date:</label>
+                <input type="date" id="birth_date" name="birth_date" required>
+                <br>
+                <label for="order">Order:</label>
+                <input type="text" id="order" name="order" placeholder="Rzecz lub obiekt" required>
+                <br>
+                <input type="submit" value="Add Data">
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Data Popup -->
+    <div class="popup" id="edit-popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('edit-popup')">&times;</span>
+            <h2>Edit Data</h2>
+            <form method="post" action="{{ url_for('edit_data', index=0) }}" id="edit-form">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name" required>
+                <br>
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" required>
+                <br>
+                <label for="pesel">PESEL:</label>
+                <input type="text" id="pesel" name="pesel" required>
+                <br>
+                <label for="birth_date">Birth Date:</label>
+                <input type="text" id="birth_date" name="birth_date" required>
+                <br>
+                <label for="order">Order:</label>
+                <input type="text" id="order" name="order" required>
+                <br>
+                <input type="submit" value="Edit Data">
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#data-table').DataTable();
+        });
+
+        // Open Add Popup
+        $('#add-btn').on('click', function () {
+            openPopup('add-popup');
+        });
+
+        // Open Edit Popup with existing data
+        $('.edit-btn').on('click', function () {
+            var index = $(this).data('index');
+            var rowData = {{ data|safe }}[index];  // Dane z odpowiedniego wiersza
+            populateEditForm(rowData);
+            openPopup('edit-popup');
+        });
+
+        // Remove Popup Close
+        $('.close').on('click', function () {
+            closePopup('add-popup');
+            closePopup('edit-popup');
+        });
+
+        // Close Popup on Overlay Click
+        $(document).on('click', function (event) {
+            if ($(event.target).hasClass('popup')) {
+                closePopup('add-popup');
+                closePopup('edit-popup');
+            }
+        });
+
+        // Function to Open Popup
+        function openPopup(popupId) {
+            $('#' + popupId).css('display', 'block');
+        }
+
+        // Function to Close Popup
+        function closePopup(popupId) {
+            $('#' + popupId).css('display', 'none');
+        }
+
+        function populateEditForm(data) {
+            $('#edit-form #first_name').val(data.first_name);
+            $('#edit-form #last_name').val(data.last_name);
+            $('#edit-form #pesel').val(data.pesel);
+            $('#edit-form #birth_date').val(data.birth_date);
+            $('#edit-form #order').val(data.order);
+        }
+
+        // Remove data on button click
+        $('.remove-btn').on('click', function () {
+            var index = $(this).data('index');
+            removeData(index);
+        });
+
+        function removeData(index) {
+            if (confirm('Are you sure you want to remove this data?')) {
+                $.ajax({
+                    url: '/data/delete/' + index,
+                    type: 'DELETE',
+                    success: function (result) {
+                        // Przeładuj stronę lub zaktualizuj widok
+                        location.reload();
+                    },
+                    error: function (error) {
+                        console.error('Error removing data:', error);
+                        alert('Error removing data. Please try again.');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

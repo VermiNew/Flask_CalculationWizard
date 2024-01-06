@@ -1,0 +1,2 @@
+# Flask - microframework for building web applications in Python
+Flask==2.1.5
