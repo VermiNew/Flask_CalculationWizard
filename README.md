@@ -1,6 +1,6 @@
-# FlaskWebsite_UserData
+# Flask_CalculationWizard
 
-FlaskWebsite_UserData is a web application developed using the Flask microframework for Python. This project provides a user-friendly platform for user registration, login, and data management.
+Flask_CalculationWizard is a web application developed using the Flask microframework for Python. This project provides a user-friendly platform for user registration, login, and data management.
 User authentication information and user-specific data are stored in JSON files.
 
 ## Features
@@ -32,8 +32,8 @@ User authentication information and user-specific data are stored in JSON files.
 
 1. **Clone the repository:**
     ```sh
-    git clone https://github.com/VermiNew/FlaskWebsite_UserData
-    cd FlaskWebsite_UserData
+    git clone https://github.com/VermiNew/Flask_CalculationWizard
+    cd Flask_CalculationWizard
     ```
 
 2. **Install dependencies:**
