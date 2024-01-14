@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error {{ error_info['error_code'] }}</title>
+    <!-- Dodajemy link do Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/error_site.css') }}">
+</head>
+<body>
+    <!-- Dodajemy klasę container do zastosowania Bootstrap -->
+    <div class="container">
+        <section>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="offset-1 col-sm-10 text-center">
+                        <div class="animation"></div>
+                        <div class="error-container">
+                            <h1 class="display-1 text-danger">{{ error_info['error_code'] }}</h1>
+                            <h3 class="text-muted">Looks like you're lost</h3>
+                            <p class="text-muted">{{ error_info['error_description'] }}</p>
+                            <p class="text-muted small"><b>Description:</b><br>{{ error_info['error_source'] }}</p>
+                            <a href="{{ url_for('home') }}" class="btn btn-primary">Go to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Dodajemy linki do Bootstrap JavaScript i jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

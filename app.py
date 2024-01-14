@@ -131,5 +131,23 @@ def delete_data(index):
     else:
         return jsonify({'error': 'Invalid index'}), 400  # Bad Request
 
+@app.errorhandler(404)
+def page_not_found(error):
+    error_info = {
+        'error_code': 404,
+        'error_description': 'Page not found',
+        'error_source': str(error)
+    }
+    return render_template('error.html', error_info=error_info), 404
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    error_info = {
+        'error_code': 500,
+        'error_description': 'Internal Server Error',
+        'error_source': str(error)
+    }
+    return render_template('error.html', error_info=error_info), 500
+
 if __name__ == '__main__':
     app.run(debug=True)
