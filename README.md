@@ -79,6 +79,18 @@ User authentication information and user-specific data are stored in JSON files.
 
 Report any issues or suggest improvements by creating a new issue.
 
+## Badges
+
+[![License: MIT](https://img.shields.io/github/license/VermiNew/Flask_CalculationWizard.svg?style=flat-square)](LICENSE)
+[![Batch](https://img.shields.io/badge/Platform-Batch-blue.svg)](https://en.wikipedia.org/wiki/Batch_file)
+[![Platform: Python](https://img.shields.io/badge/Platform-Python-orange.svg)](https://www.python.org/)
+[![Build Status](https://img.shields.io/travis/com/VermiNew/Flask_CalculationWizard/master.svg?style=flat-square)](https://travis-ci.com/VermiNew/Flask_CalculationWizard)
+[![Coverage Status](https://img.shields.io/codecov/c/github/VermiNew/Flask_CalculationWizard/master.svg?style=flat-square)](https://codecov.io/gh/VermiNew/Flask_CalculationWizard)
+[![Stable Release](https://img.shields.io/badge/Release-Stable-darkgreen.svg)](https://github.com/VermiNew/Flask_CalculationWizard/releases/tag/stable)
+[![Contributor Friendly](https://img.shields.io/badge/Contributions-Welcome-darkgreen.svg)](https://github.com/VermiNew/Flask_CalculationWizard/blob/main/CONTRIBUTING.md)
+[![GitHub Issues](https://img.shields.io/github/issues/VermiNew/Flask_CalculationWizard.svg?style=flat-square)](https://github.com/VermiNew/Flask_CalculationWizard/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/VermiNew/Flask_CalculationWizard.svg?style=social&label=Stars)](https://github.com/VermiNew/Flask_CalculationWizard/stargazers)
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
